@@ -2,20 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import Nav from './compenents/Nav';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import City from './screens/City';
 import Home from './screens/Home';
-import store from './store/store';
+import {PersistGate} from "redux-persist/integration/react";
+import store, {persistor} from "./store/store";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
-        {/* <Nav /> */}
-        <Route exact path="/" component={Home} />
-        <Route path="/:city" component={City} />
-      </Router>
+        <PersistGate loading={null} persistor={persistor}>
+            <Router>
+                <Nav />
+                <Route exact path="/" component={Home} />
+                <Route path="/:city" component={City} />
+            </Router>
+        </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

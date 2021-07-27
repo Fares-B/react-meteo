@@ -3,7 +3,8 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import themeReducer from './reducers/theme';
 
-const rootReducer:any = combineReducers({ theme: themeReducer });
+const rootReducer = combineReducers({ theme: themeReducer });
+
 const persistConfig = {
     key: 'test',
     storage,
@@ -11,10 +12,10 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-let store = createStore(persistedReducer);
+const  store = createStore(persistedReducer);
 export const persistor = persistStore(store);
-
 export default store;
+
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
