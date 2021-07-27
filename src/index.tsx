@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import City from './screens/City';
 import Home from './screens/Home';
+import store from './store/store';
 
 ReactDOM.render(
   <React.StrictMode>
-        <Router>
-            {/* <Nav /> */}
-            <Route exact path="/" component={Home} />
-            <Route path="/:city" component={City} />
-        </Router>
+    <Provider store={store}>
+      <Router>
+        {/* <Nav /> */}
+        <Route exact path="/" component={Home} />
+        <Route path="/:city" component={City} />
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
