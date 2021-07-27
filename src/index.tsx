@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import City from './screens/City';
+import Home from './screens/Home';
 
 ReactDOM.render(
   <React.StrictMode>
         <Router>
-            {/* <Nav />
+            {/* <Nav /> */}
             <Route exact path="/" component={Home} />
-            <Route path="/:city" component={City} /> */}
+            <Route path="/:city" component={City} />
         </Router>
   </React.StrictMode>,
   document.getElementById('root')
