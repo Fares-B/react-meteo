@@ -9,6 +9,7 @@ const rootReducer = combineReducers({ theme: themeReducer, search: searchReducer
 const persistConfig = {
     key: 'test',
     storage,
+    blacklist: ['search'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
