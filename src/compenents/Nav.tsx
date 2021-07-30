@@ -24,7 +24,7 @@ const Nav: React.FC = (props) => {
     };
 
     return (
-        <Navbar className="bg-info">
+        <Navbar className="bg-info mb-5">
             <Container>
                 <Navbar.Brand as={Link} to="/">Mes Villes</Navbar.Brand>
                 <Navbar.Brand as={Link} to="/search">Ajouter</Navbar.Brand>

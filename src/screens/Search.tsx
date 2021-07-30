@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import TCity from "../interface/city";
+import TCity, {getCityId} from "../interface/city";
 import {Col, Container, Row} from "react-bootstrap";
 import 'moment/locale/fr';
 import Search from "../compenents/Search";
@@ -16,11 +16,11 @@ const City = () => {
     }, [searchCities]);
 
     return (
-        <Container className="pt-2">
+        <Container>
             <h1>Ajouter une ville</h1>
             <Search />
             <Row xs={1} md={2} lg={5}>
-                { cities.map((city, idx) => (<Col key={idx}>
+                { cities.map((city) => (<Col key={getCityId(city)}>
                     <CardCity city={city} />
                 </Col>) ) }
             </Row>
