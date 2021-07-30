@@ -3,14 +3,26 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import themeReducer from './reducers/theme';
 import searchReducer from "./reducers/search";
+import citiesReducer from "./reducers/cities";
 
-const rootReducer = combineReducers({ theme: themeReducer, search: searchReducer });
+// const rootReducer = combineReducers({ theme: themeReducer, search: searchReducer });
 
 const persistConfig = {
-    key: 'test',
+    key: 'root',
     storage,
-    blacklist: ['search'],
+    whitelist: ['theme'],
 };
+
+const citiesPersistConfig = {
+    key: 'cities',
+    storage: storage,
+}
+
+const rootReducer = combineReducers({
+    cities: persistReducer(citiesPersistConfig, citiesReducer),
+    theme: themeReducer,
+    search: searchReducer,
+})
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

@@ -17,12 +17,15 @@ export const searchReducer = createSlice({
         updateSearch: (state = initialState, action: PayloadAction<string>): void => {
             state.value = action.payload;
         },
-        updateCities: (state = initialState, action: PayloadAction<[]>): void => {
+        updateSearchCities: (state = initialState, action: PayloadAction<[]>): void => {
             state.cities = action.payload;
+        },
+        clearSearchCities: (state = initialState): void => {
+            state.cities = [];
         },
     },
 });
 
-export const { updateSearch, updateCities } = searchReducer.actions;
+export const { updateSearch, updateSearchCities, clearSearchCities } = searchReducer.actions;
 
 export default searchReducer.reducer;

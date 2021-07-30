@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { AppDispatch } from "../store/store";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { changeTheme, Theme } from "../store/reducers/theme";
+import {toggleBodyClasses} from "../assets/darkMode";
 
 const Nav: React.FC = (props) => {
 
@@ -15,6 +16,7 @@ const Nav: React.FC = (props) => {
 
     useEffect(() => {
         setDarkMode(themeState.dark);
+        toggleBodyClasses(themeState.dark);
     }, [themeState.dark]);
 
     const changeStyle = ():void => {
@@ -22,15 +24,16 @@ const Nav: React.FC = (props) => {
     };
 
     return (
-        <Navbar bg="secondary">
+        <Navbar className="bg-info">
             <Container>
-                <Navbar.Brand as={Link} to="/">Météo</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/">Mes Villes</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/search">Ajouter</Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
                     <BootstrapSwitchButton
                         checked={darkMode}
                         onChange={changeStyle}
-                        onlabel='dark'
-                        offlabel='ligth'
+                        onlabel='Nuit'
+                        offlabel='Jour'
                         onstyle="dark"
                         width={75}
                     />

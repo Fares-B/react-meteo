@@ -9,6 +9,7 @@ import City from './screens/City';
 import Home from './screens/Home';
 import {PersistGate} from "redux-persist/integration/react";
 import store, {persistor} from "./store/store";
+import Search from "./screens/Search";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,7 +18,8 @@ ReactDOM.render(
             <Router>
                 <Nav />
                 <Route exact path="/" component={Home} />
-                <Route path="/:city" component={City} />
+                <Route path="/search" component={Search} />
+                <Route exact path="/city/:city" component={City} />
             </Router>
         </PersistGate>
     </Provider>

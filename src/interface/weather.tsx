@@ -1,3 +1,12 @@
+export interface TTempsDay {
+    day: number,
+    min: number,
+    max: number,
+    night: number,
+    eve: number,
+    morn: number
+}
+
 export interface TWeatherDay {
     dt: number,
     sunrise: number,
@@ -5,14 +14,7 @@ export interface TWeatherDay {
     moonrise?: number,
     moonset?: number,
     moon_phase?: number,
-    temp: number | {
-        day: number,
-        min: number,
-        max: number,
-        night: number,
-        eve: number,
-        morn: number
-    },
+    temp: number | TTempsDay,
     feels_like: number | {
         day: number,
         night: number,

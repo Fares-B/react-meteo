@@ -1,6 +1,9 @@
-import TWeather from "./weather";
+export function getCityId(city:TCity): string {
+    return JSON.stringify(city.geometry.coordinates);
+}
 
 export default interface TCity  {
+    _id?: string,
     type: string,
     geometry: {
         type: string,
@@ -24,5 +27,4 @@ export default interface TCity  {
         context: string,
         importance: number
     },
-    // weather?: TWeather,
 }
