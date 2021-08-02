@@ -5,7 +5,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import 'moment/locale/fr';
 import TWeather, {TTempsDay} from "../interface/weather";
 import moment from "moment/moment";
-import Graph from "../compenents/Graph";
+import Graph from "../components/Graph";
 
 
 interface LocationCustom {

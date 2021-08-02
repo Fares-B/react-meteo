@@ -1,5 +1,5 @@
 import React from "react";
-import CardCity from "../compenents/CardCity";
+import CardCity from "../components/CardCity";
 import {useAppSelector} from "../store/hooks";
 import {Col, Container, Row} from "react-bootstrap";
 import TCity from "../interface/city";

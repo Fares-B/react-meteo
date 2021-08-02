@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Nav from './compenents/Nav';
+import Nav from './components/Nav';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import City from './screens/City';

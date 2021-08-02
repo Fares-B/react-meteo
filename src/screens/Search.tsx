@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import TCity, {getCityId} from "../interface/city";
 import {Col, Container, Row} from "react-bootstrap";
 import 'moment/locale/fr';
-import Search from "../compenents/Search";
-import CardCity from "../compenents/CardCity";
+import Search from "../components/Search";
+import CardCity from "../components/CardCity";
 import {useAppSelector} from "../store/hooks";
 
 const City = () => {
