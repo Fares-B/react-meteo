@@ -9,11 +9,18 @@ import {useAppSelector} from "../store/hooks";
 const City = () => {
 
     const searchCities: TCity[] = useAppSelector<TCity[]>(({search}) => search.cities);
+    const localCities: TCity[] = useAppSelector<TCity[]>(({cities}) => cities.cities);
     const [cities, setCities] = useState<TCity[] | []>([]);
 
     useEffect(() => {
         setCities(searchCities);
     }, [searchCities]);
+
+    const selectedCity = (city: TCity): boolean => {
+        const id: string = getCityId(city);
+        const filter = localCities.filter(c => getCityId(c) === id );
+        return filter.length > 0;
+    };
 
     return (
         <Container>
@@ -21,7 +28,7 @@ const City = () => {
             <Search />
             <Row xs={1} md={2} lg={5}>
                 { cities.map((city) => (<Col key={getCityId(city)}>
-                    <CardCity city={city} />
+                    <CardCity city={city} status={selectedCity(city)} />
                 </Col>) ) }
             </Row>
         </Container>
