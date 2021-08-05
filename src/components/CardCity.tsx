@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Button, Card, Modal} from "react-bootstrap";
 import { Link } from "react-router-dom";
-import TCity, { getCityId } from "../interface/city";
+import TCity  from "../interface/city";
 import TWeather from "../interface/weather";
 import {AppDispatch} from "../store/store";
 import {useAppDispatch, useAppSelector} from "../store/hooks";
@@ -20,7 +20,8 @@ const CardCity: React.FC<Props> = ({city, status = false}) => {
     const [showModal, setShowModal] = useState<boolean>(false);
 
     useEffect(() => {
-        const w: TWeather | undefined = weathers.filter(w => w._id === getCityId(city)).shift();
+        const w: TWeather | undefined = weathers.filter(w => w._id === city._id).shift();
+        console.log(weathers, city);
         if (w !== undefined) {
             setWeather(w);
         }

@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import TCity, {getCityId} from "../../interface/city";
 
 export interface Search {
     value: string,
-    cities: [],
+    cities: TCity[],
 }
 
 const initialState: Search = {
@@ -17,8 +18,8 @@ export const searchReducer = createSlice({
         updateSearch: (state = initialState, action: PayloadAction<string>): void => {
             state.value = action.payload;
         },
-        updateSearchCities: (state = initialState, action: PayloadAction<[]>): void => {
-            state.cities = action.payload;
+        updateSearchCities: (state = initialState, action: PayloadAction<TCity[]>): void => {
+            state.cities = action.payload.map(city => { return {...city, _id: getCityId(city)}});
         },
         clearSearchCities: (state = initialState): void => {
             state.cities = [];

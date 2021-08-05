@@ -14,13 +14,13 @@ export const citiesReducer = createSlice({
     initialState,
     reducers: {
         appendCity: (state = initialState, action: PayloadAction<TCity>): void => {
-            state.cities = [...state.cities, action.payload];
+            state.cities = [...state.cities, {...action.payload, _id: getCityId(action.payload)}];
         },
         removeCity: (state = initialState, action: PayloadAction<TCity>): void => {
-            state.cities = state.cities.filter(city => getCityId(city) !== getCityId(action.payload));
+            state.cities = state.cities.filter(city => city._id !== action.payload._id);
         },
         updateOneCityWeather: (state = initialState, action: PayloadAction<TCity>): void => {
-            const citiesTemp: TCity[] = state.cities.filter(city => getCityId(city) !== getCityId(action.payload));
+            const citiesTemp: TCity[] = state.cities.filter(city => city._id !== action.payload._id);
             state.cities = [...citiesTemp, action.payload];
         },
 

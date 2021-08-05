@@ -12,12 +12,18 @@ import fetchWeather from "../services/fetchWeather";
 import TCity, {getCityId, getCoordinates} from "../interface/city";
 import {appendAllWeather} from "../store/reducers/weather";
 
+const allCitiesFiltered = (citiesLocal: TCity[], citiesSearch: TCity[]): TCity[] => {
+    const cities:TCity[] = citiesLocal.concat(citiesSearch);
+    const ids = cities.map(c => c._id);
+    return cities.filter(({_id}, index) => !ids.includes(_id, index + 1))
+}
 const Nav: React.FC = (props) => {
 
     const dispatch: AppDispatch = useAppDispatch();
     const [darkMode, setDarkMode] = useState<boolean>(false);
     const themeState: Theme = useAppSelector<Theme>(({theme}) => theme);
     const citiesLocal: TCity[] = useAppSelector<TCity[]>(({cities}) => cities.cities);
+    const citiesSearch: TCity[] = useAppSelector<TCity[]>(({search}) => search.cities);
 
     useEffect(() => {
         setDarkMode(themeState.dark);
@@ -27,14 +33,14 @@ const Nav: React.FC = (props) => {
     useEffect(() => {
         (async () => {
             const weathers: TWeather[] = [];
-            for (const city of citiesLocal) {
+            for (const city of allCitiesFiltered(citiesLocal, citiesSearch)) {
                 await fetchWeather(getCoordinates(city.geometry.coordinates)).then((weather: TWeather) => {
                     weathers.push({ ...weather, _id: getCityId(city), date: new Date() });
                 });
             }
             dispatch(appendAllWeather(weathers));
         })();
-    }, [citiesLocal, dispatch]);
+    }, [citiesSearch, citiesLocal, dispatch]);
 
     const changeStyle = ():void => {
         dispatch(changeTheme(!darkMode));

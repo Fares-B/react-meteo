@@ -14,6 +14,7 @@ export function getCoordinates(coordinates: [number, number]): Coordinates {
 }
 
 export default interface TCity  {
+    _id?: string,
     type: string,
     geometry: {
         type: string,

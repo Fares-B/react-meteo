@@ -5,10 +5,6 @@ import 'moment/locale/fr';
 import TWeather, {TTempsDay} from "../interface/weather";
 import moment from "moment/moment";
 import Graph from "../components/Graph";
-import {AppDispatch} from "../store/store";
-import {useAppDispatch} from "../store/hooks";
-// import {updateWeather} from "../store/reducers/weather";
-// import fetchWeather from "../services/fetchWeather";
 import {useLocation} from "react-router-dom";
 
 interface LocationCustom {
@@ -17,7 +13,6 @@ interface LocationCustom {
 }
 
 const City: React.FC = () => {
-    const dispatch: AppDispatch = useAppDispatch();
     const [tempsDay, setTempsDay] = useState<TTempsDay>();
     const location = useLocation();
     const {city, weather} = location.state as LocationCustom; // Type Casting, then you can get the params passed via router
