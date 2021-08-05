@@ -21,6 +21,16 @@ const City: React.FC = () => {
     const [tempsDay, setTempsDay] = useState<TTempsDay>();
     const location = useLocation();
     const {city, weather} = location.state as LocationCustom; // Type Casting, then you can get the params passed via router
+    const [updatedAt, setUpdatedAt] = useState<string>();
+
+    useEffect(() => {
+        setUpdatedAt(moment(weather?.date).fromNow());
+        const subs = setInterval(() => {
+            setUpdatedAt(moment(weather?.date).fromNow());
+            console.log(updatedAt)
+        }, 60_000);
+        return clearInterval(subs);
+    }, [weather]);
 
     useEffect(() => {
         if (typeof weather?.daily[0].temp !== "number") {
@@ -38,7 +48,7 @@ const City: React.FC = () => {
             <Row className="">
                 <Col>
                     <h1>{city.properties.name}</h1>
-                    {moment(weather.date).fromNow()}
+                    {updatedAt}
                 </Col>
                 {/*<Col className="text-end">*/}
                 {/*    <Button onClick={refreshWeather}>Rafraichir</Button>*/}
