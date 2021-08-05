@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
-import TCity, {Coordinates, getCoordinates} from "../interface/city";
-import {Button, Col, Container, Row} from "react-bootstrap";
+import TCity from "../interface/city";
+import {Col, Container, Row} from "react-bootstrap";
 import 'moment/locale/fr';
 import TWeather, {TTempsDay} from "../interface/weather";
 import moment from "moment/moment";
 import Graph from "../components/Graph";
 import {AppDispatch} from "../store/store";
 import {useAppDispatch} from "../store/hooks";
-import {updateWeather} from "../store/reducers/weather";
-import fetchWeather from "../services/fetchWeather";
+// import {updateWeather} from "../store/reducers/weather";
+// import fetchWeather from "../services/fetchWeather";
 import {useLocation} from "react-router-dom";
 
 interface LocationCustom {
@@ -28,10 +28,10 @@ const City: React.FC = () => {
         }
     }, [weather?.daily])
 
-    const refreshWeather = ():void => {
-        const coordinates: Coordinates = getCoordinates(JSON.parse(weather._id as string));
-        fetchWeather(coordinates).then(w => dispatch(updateWeather(w)) );
-    };
+    // const refreshWeather = ():void => {
+    //     const coordinates: Coordinates = getCoordinates(JSON.parse(weather._id as string));
+    //     fetchWeather(coordinates).then(w => dispatch(updateWeather(w)) );
+    // };
 
     return (
         <Container className="pt-2">
@@ -40,9 +40,9 @@ const City: React.FC = () => {
                     <h1>{city.properties.name}</h1>
                     {moment(weather.date).fromNow()}
                 </Col>
-                <Col className="text-end">
-                    <Button onClick={refreshWeather}>Rafraichir</Button>
-                </Col>
+                {/*<Col className="text-end">*/}
+                {/*    <Button onClick={refreshWeather}>Rafraichir</Button>*/}
+                {/*</Col>*/}
             </Row>
             <Row>
                 <Col className="text-end">

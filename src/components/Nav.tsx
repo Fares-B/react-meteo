@@ -34,7 +34,7 @@ const Nav: React.FC = (props) => {
             }
             dispatch(appendAllWeather(weathers));
         })();
-    });
+    }, [citiesLocal, dispatch]);
 
     const changeStyle = ():void => {
         dispatch(changeTheme(!darkMode));
