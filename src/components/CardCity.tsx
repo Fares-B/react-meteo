@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Button, Card, Modal} from "react-bootstrap";
 import { Link } from "react-router-dom";
-import TCity from "../interface/city";
+import TCity, { getCityId } from "../interface/city";
 import TWeather from "../interface/weather";
-import fetchWeather from "../services/fetchWeather";
 import {AppDispatch} from "../store/store";
-import {useAppDispatch} from "../store/hooks";
+import {useAppDispatch, useAppSelector} from "../store/hooks";
 import {appendCity, removeCity} from "../store/reducers/cities";
 
 interface Props {
@@ -15,17 +14,17 @@ interface Props {
 
 const CardCity: React.FC<Props> = ({city, status = false}) => {
     const dispatch: AppDispatch = useAppDispatch();
+    const weathers: TWeather[] = useAppSelector<TWeather[]>(({ weather }) => weather.weather);
     const [weather, setWeather] = useState<TWeather | null>(null);
     const [statusAddButton, setStatusAddButton] = useState<boolean>(status);
     const [showModal, setShowModal] = useState<boolean>(false);
 
     useEffect(() => {
-        const coordinates: { lat: number, lon: number } = {
-            lon: city.geometry.coordinates[0],
-            lat: city.geometry.coordinates[1],
-        };
-        fetchWeather(coordinates).then((w:TWeather) => setWeather(w));
-    }, [city]);
+        const w: TWeather | undefined = weathers.filter(w => w._id === getCityId(city)).shift();
+        if (w !== undefined) {
+            setWeather(w);
+        }
+    }, [weathers, city]);
 
     const handleDeleteCity = () => {
         setStatusAddButton(false);
@@ -38,11 +37,13 @@ const CardCity: React.FC<Props> = ({city, status = false}) => {
         setStatusAddButton(true);
     }
 
+    const getLink = (): string => city.properties.name.split(' ').join('+');
+
     return (
         <>
             <Card className="w-100">
                 <Card.Body>
-                    <Link to={{pathname: `/city/${city.properties.name.split(' ').join('+')}`, state: {city: city, weather: weather}}}>
+                    <Link to={{pathname: `/city/${getLink()}`, state: {city: city, weather: weather}}}>
                         <Card.Title>{city.properties.name}</Card.Title>
                         <Card.Text>
                             {weather?.current.temp}°
@@ -76,4 +77,6 @@ const CardCity: React.FC<Props> = ({city, status = false}) => {
 };
 
 export default CardCity;
+
+
 

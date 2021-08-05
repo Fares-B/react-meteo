@@ -7,17 +7,34 @@ import { AppDispatch } from "../store/store";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { changeTheme, Theme } from "../store/reducers/theme";
 import {toggleBodyClasses} from "../assets/darkMode";
+import TWeather from "../interface/weather";
+import fetchWeather from "../services/fetchWeather";
+import TCity, {getCityId, getCoordinates} from "../interface/city";
+import {appendAllWeather} from "../store/reducers/weather";
 
 const Nav: React.FC = (props) => {
 
     const dispatch: AppDispatch = useAppDispatch();
     const [darkMode, setDarkMode] = useState<boolean>(false);
     const themeState: Theme = useAppSelector<Theme>(({theme}) => theme);
+    const citiesLocal: TCity[] = useAppSelector<TCity[]>(({cities}) => cities.cities);
 
     useEffect(() => {
         setDarkMode(themeState.dark);
         toggleBodyClasses(themeState.dark);
     }, [themeState.dark]);
+
+    useEffect(() => {
+        (async () => {
+            const weathers: TWeather[] = [];
+            for (const city of citiesLocal) {
+                await fetchWeather(getCoordinates(city.geometry.coordinates)).then((weather: TWeather) => {
+                    weathers.push({ ...weather, _id: getCityId(city), date: new Date() });
+                });
+            }
+            dispatch(appendAllWeather(weathers));
+        })();
+    });
 
     const changeStyle = ():void => {
         dispatch(changeTheme(!darkMode));

@@ -42,10 +42,12 @@ export interface TWeatherDay {
 
 
 export default interface TWeather {
-    lat: number,
-    lon: number,
-    timezone: string,
-    timezone_offset: number,
-    current: TWeatherDay,
-    daily: TWeatherDay[],
+    _id?: string;
+    date?: Date;
+    lat: number;
+    lon: number;
+    timezone: string;
+    timezone_offset: number;
+    current: TWeatherDay;
+    daily: TWeatherDay[];
 };

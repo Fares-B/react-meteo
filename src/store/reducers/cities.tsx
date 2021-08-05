@@ -19,10 +19,14 @@ export const citiesReducer = createSlice({
         removeCity: (state = initialState, action: PayloadAction<TCity>): void => {
             state.cities = state.cities.filter(city => getCityId(city) !== getCityId(action.payload));
         },
+        updateOneCityWeather: (state = initialState, action: PayloadAction<TCity>): void => {
+            const citiesTemp: TCity[] = state.cities.filter(city => getCityId(city) !== getCityId(action.payload));
+            state.cities = [...citiesTemp, action.payload];
+        },
 
     },
 });
 
-export const { appendCity, removeCity } = citiesReducer.actions;
+export const { appendCity, removeCity, updateOneCityWeather } = citiesReducer.actions;
 
 export default citiesReducer.reducer;

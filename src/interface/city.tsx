@@ -1,9 +1,19 @@
-export function getCityId(city:TCity): string {
+export function getCityId(city: TCity | undefined): string {
+    if (city === undefined)
+        return "";
     return JSON.stringify(city.geometry.coordinates);
 }
 
+export interface Coordinates {
+    lon: number,
+    lat: number,
+}
+
+export function getCoordinates(coordinates: [number, number]): Coordinates {
+    return { lon: coordinates[0], lat: coordinates[1] };
+}
+
 export default interface TCity  {
-    _id?: string,
     type: string,
     geometry: {
         type: string,
