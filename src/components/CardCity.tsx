@@ -7,6 +7,14 @@ import {AppDispatch} from "../store/store";
 import {useAppDispatch, useAppSelector} from "../store/hooks";
 import {appendCity, removeCity} from "../store/reducers/cities";
 
+interface CardProps {title:string, text?: any}
+const CardInfo: React.FC<CardProps> = (props: CardProps) => {
+    return <>
+        <Card.Title><span style={{color: "#0d6efd"}}>{props.title}</span></Card.Title>
+        {props.text && <Card.Text>{props.text}°</Card.Text>}
+    </>
+};
+
 interface Props {
     city: TCity,
     status?: boolean,
@@ -43,18 +51,19 @@ const CardCity: React.FC<Props> = ({city, status = false}) => {
         <>
             <Card className="w-100">
                 <Card.Body>
-                    <Link to={{pathname: `/city/${getLink()}`, state: {city: city, weather: weather}}}>
-                        <Card.Title>{city.properties.name}</Card.Title>
-                        <Card.Text>
-                            {weather?.current.temp}°
-                        </Card.Text>
-                    </Link>
-                    <Card.Text className="text-end">
-                        {statusAddButton
-                            ? <Button variant="danger" onClick={()=> setShowModal(true)}>-</Button>
-                            : <Button variant="primary" onClick={handleAddCity}>+</Button>
-                        }
-                    </Card.Text>
+                    {statusAddButton
+                        ? <><Link to={{pathname: `/city/${getLink()}`, state: {city: city, weather: weather}}}>
+                                <CardInfo title={city.properties.name} text={weather?.current.temp} />
+                            </Link>
+                            <Card.Text className="text-end">
+                                <Button variant="danger" onClick={()=> setShowModal(true)}>-</Button>
+                            </Card.Text></>
+                        : <><CardInfo title={city.properties.name} />
+                            <Card.Text className="text-end">
+                                <Button variant="primary" onClick={handleAddCity}>+</Button>
+                            </Card.Text>
+                        </>
+                    }
                 </Card.Body>
             </Card>
 
