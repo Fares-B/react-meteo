@@ -86,6 +86,3 @@ const CardCity: React.FC<Props> = ({city, status = false}) => {
 };
 
 export default CardCity;
-
-
-

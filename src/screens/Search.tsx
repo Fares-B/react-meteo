@@ -5,6 +5,7 @@ import 'moment/locale/fr';
 import Search from "../components/Search";
 import CardCity from "../components/CardCity";
 import {useAppSelector} from "../store/hooks";
+import TransitionAnimation from "../components/TransitionAnimation";
 
 const City = () => {
 
@@ -23,15 +24,17 @@ const City = () => {
     };
 
     return (
-        <Container>
-            <h1>Ajouter une ville</h1>
-            <Search />
-            <Row xs={1} md={2} lg={5}>
-                { cities.map((city) => (<Col key={getCityId(city)}>
-                    <CardCity city={city} status={selectedCity(city)} />
-                </Col>) ) }
-            </Row>
-        </Container>
+        <TransitionAnimation>
+            <Container>
+                <h1>Ajouter une ville</h1>
+                <Search />
+                <Row xs={1} md={2} lg={5}>
+                    { cities.map((city) => (<Col key={getCityId(city)}>
+                        <CardCity city={city} status={selectedCity(city)} />
+                    </Col>) ) }
+                </Row>
+            </Container>
+        </TransitionAnimation>
     );
 }
 
