@@ -13,7 +13,7 @@ const TransitionAnimation: React.FC = ({ children}) => {
         initial="hidden" // Set the initial state to variants.hidden
         animate="enter" // Animated state to variants.enter
         exit="exit" // Exit state (used later) to variants.exit
-        transition={{ type: 'linear' }} // Set the transition to linear
+        transition={{ type: "easeIn", duration: 1, velocity: 70   }} // Set the transition to linear
         className=""
     >
         {children}
